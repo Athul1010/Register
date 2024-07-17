@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import '../Styles/Register.css'
+import { Link } from 'react-router-dom';
 
 
 const Register = () => {
@@ -51,7 +52,7 @@ const Register = () => {
         </div>
 
         <div className="confirm">
-          <span>Already have an account?</span>
+          <span><Link to={'/login'}>Already have an account?</Link></span>
         </div>
 
         <button type="submit" className="register-button">Register</button>

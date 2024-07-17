@@ -40,4 +40,43 @@ router.post("/register", async (req, res) => {
     }
 });
 
+
+
+
+// Login user
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    // Check if all fields are provided
+    if (!email || !password) {
+        res.status(422).json("Please fill all the fields");
+        return;
+    }
+
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            res.status(422).json("Invalid email or password");
+            return;
+        }
+
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            res.status(422).json("Invalid email or password");
+            return;
+        }
+
+        // Successful login
+        res.status(200).json({ message: "Login successful", user });
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+
+
+
+
 module.exports = router;

@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Apple+System');
+
+.login-container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Apple System', sans-serif;
+}
+.login-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.login-title h1{
+    margin-bottom: 0rem;
+    font-size: 24px;
+    font-weight: 600;
+}
+.email-label,
+.password-label{
+    display: flex;
+    justify-self: start;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+}
+.form-mark{
+    display: flex;
+    justify-content: space-between;
+}
+.remember{
+    display: flex;
+    gap: 10px;
+}
+.login-wrapper {
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+    padding: 0px 48px;
+}
+.signIn_form{
+    padding-top: 26px;
+    padding-bottom: 20px;
+    margin-bottom: 0rem;
+    font-weight: 700;
+}
+.signIn-button{
+    margin: 38px 0px;
+    height: 50px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(22,163,74);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+.forget-password{
+    font-weight: 600;
+    font-size: 14px;
+    color: rgb(22,163,74);
+}
+.remember label{
+font-size: 14px;
+}
+
+@media only screen and (max-width: 375px){
+    .form-mark{
+        flex-direction: column;
+    }
+    .forget-password{
+        text-align: left;
+        margin-top: 10px;
+    }
+}
