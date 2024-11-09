@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import '../Styles/Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -16,12 +17,25 @@ const Login = () => {
                 email,
                 password
             });
-            alert(response.data); // Assuming the backend sends a response like "Login Successfully" or error messages
-            // Handle success or display a message to the user
-
-
-            alert('login successfully')
+            console.log(response.data);
             
+            //  alert(response.data); // Assuming the backend sends a response like "Login Successfully" or error messages
+            // // Handle success or display a message to the user
+
+
+            // alert('login successfully')
+
+            if (response.data.token) {
+                // Store JWT token in localStorage
+                localStorage.setItem('token', response.data.token);
+                alert('Login successful');
+
+                //ivide nammal sucessful aayit undenkil pokenda page nte path kodukkua like using useNavigate
+                // Redirect to ProtectedComponent
+                navigate('/protected'); // Replace with your route to the protected component
+            } else {
+                alert('Login failed');
+            }
             
 
         } catch (error) {

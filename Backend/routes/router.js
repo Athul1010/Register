@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken"); // Import jwt package
 const User = require("../Models/userSchema");
+const authenticateJWT = require("../middleware/authMiddleware"); // Import the middleware
 
 // Register user
 router.post("/register", async (req, res) => {
@@ -40,7 +42,12 @@ router.post("/register", async (req, res) => {
     }
 });
 
+//--------------------------------------------------------------------------------------
 
+
+
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret"; // Store your JWT secret in .env for security
 
 
 // Login user
@@ -68,8 +75,14 @@ router.post("/login", async (req, res) => {
             return;
         }
 
+
+        // Create JWT token
+        const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "1h" }); // Token expires in 1 hour
+
+
         // Successful login
-        res.status(200).json({ message: "Login successful", user });
+        // res.status(200).json({ message: "Login successful", user });
+        res.status(200).json({ message: "Login successful", token });
     } catch (error) {
         res.status(500).json(error);
     }
@@ -77,6 +90,14 @@ router.post("/login", async (req, res) => {
 
 
 
+
+
+
+
+// Protected route
+router.get("/protected", authenticateJWT, (req, res) => {
+    res.status(200).json({ message: "This is protected data", user: req.user });
+});
 
 
 module.exports = router;
